@@ -2,20 +2,13 @@
 
 ## 🚀 Project Overview
 
-This project explores the application of **Deep Learning and Machine Learning techniques for financial time-series forecasting**, with the objective of predicting future stock prices from historical market data.
+This project explores the application of Deep Learning and Machine Learning techniques for financial time-series forecasting, with the objective of predicting future stock prices from historical market data.
 
-The study compares multiple predictive approaches, including:
+The study compares multiple predictive approaches, including Long Short-Term Memory (LSTM), Gated Recurrent Unit (GRU), CNN-LSTM, Attention-LSTM, Random Forest, and XGBoost.
 
-- Long Short-Term Memory (LSTM)
-- Gated Recurrent Unit (GRU)
-- CNN-LSTM
-- Attention-LSTM
-- Random Forest
-- XGBoost
+The models are trained on historical daily closing prices of five major technology companies and evaluated using Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE).
 
-The models are trained on historical daily closing prices of five major technology companies and evaluated using **Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE)**.
-
-The primary objective is to understand how different model architectures capture **temporal dependencies, market trends, volatility, and sequential patterns** in financial data.
+The primary objective is to understand how different model architectures capture temporal dependencies, market trends, volatility, and sequential patterns in financial data.
 
 ---
 
@@ -36,7 +29,7 @@ The main objectives of this project are to:
 
 ## 📊 Dataset
 
-The historical stock price data was obtained from the **Yahoo Finance API** using the `yfinance` Python library.
+The historical stock price data was obtained from the Yahoo Finance API using the `yfinance` Python library.
 
 ### Stocks Analyzed
 
@@ -48,47 +41,41 @@ The historical stock price data was obtained from the **Yahoo Finance API** usin
 | Amazon | AMZN |
 | Tesla | TSLA |
 
-The dataset contains daily closing prices covering approximately **January 2015 to December 2023**.
+The dataset covers approximately January 2015 to December 2023 and contains daily closing prices for the five selected technology companies.
 
-The resulting dataset contains:
+Each observation represents a trading day, while each stock is represented as a separate feature. The date is used as the time-series index.
 
-- **2,264 trading-day observations**
-- **5 stock price features**
-- Daily closing prices for all five companies
-- No missing values
-
-The data is structured as a time series, with historical observations used to learn patterns for future predictions.
+The selected companies provide a multi-asset financial time-series dataset suitable for comparing forecasting approaches across different stocks.
 
 ---
 
 ## 🔄 Data Preprocessing
 
-Before model training, several preprocessing steps were performed.
+Several preprocessing steps were performed before model training.
 
 ### 1. Missing Value Analysis
 
-The dataset was checked for missing values across all five stocks.
+The dataset was examined for missing values across all stock price variables.
 
-No missing values were identified.
+No missing values were identified in the dataset used for modeling.
 
 ### 2. Feature Scaling
 
-Stock prices were normalized using **MinMaxScaler**, transforming the values into a common range between 0 and 1.
+Stock prices were normalized using `MinMaxScaler`, transforming the values into a common range between 0 and 1.
 
-This scaling helps neural networks train more efficiently and improves numerical stability.
+This scaling improves numerical stability and helps neural networks train more effectively.
 
 ### 3. Sliding Window Sequence Generation
 
-A **60-day sliding window** was implemented.
+A 60-day sliding window was used to transform the historical stock prices into sequential training samples.
 
-The previous 60 trading days are used as the input sequence for predicting the following day's stock price.
+The previous 60 trading days were used to predict the next day's closing price.
 
 ```text
-Previous 60 Days
-       ↓
- ┌─────────────────────────────┐
- │ Day 1 ... Day 60            │
- │ AAPL MSFT GOOGL AMZN TSLA   │
- └─────────────────────────────┘
-       ↓
- Next-Day Stock Price
+Previous 60 Trading Days
+            ↓
+    Sequential Input
+            ↓
+       ML / DL Model
+            ↓
+   Next-Day Stock Price
