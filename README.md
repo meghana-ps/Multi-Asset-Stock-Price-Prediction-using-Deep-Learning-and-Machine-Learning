@@ -365,6 +365,7 @@ RMSE, MAE, and MAPE were compared across all six models to identify the most eff
 
 The complete project workflow can be summarized as:
 
+``` text 
 Yahoo Finance API
         │
         ▼
@@ -413,7 +414,7 @@ Machine Learning          Deep Learning
                     ▼
           Future Price Forecast
 
-
+```
 
 
 ## 💡 Business & Analytical Value
