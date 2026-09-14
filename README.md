@@ -1,5 +1,6 @@
-📈 Multi-Asset Stock Price Prediction using Deep Learning and Machine Learning
-🚀 Project Overview
+# 📈 Multi-Asset Stock Price Prediction using Deep Learning and Machine Learning
+
+## 🚀 Project Overview
 
 This project explores the application of Deep Learning and Machine Learning techniques for financial time-series forecasting, with the objective of predicting future stock prices from historical market data.
 
@@ -9,29 +10,36 @@ The models are trained on historical daily closing prices of five major technolo
 
 The primary objective is to understand how different model architectures capture temporal dependencies, market trends, volatility, and sequential patterns in financial data.
 
-🎯 Objectives
+---
+
+## 🎯 Objectives
 
 The main objectives of this project are to:
 
-Analyze historical stock price trends and market fluctuations.
-Build time-series forecasting models using both Machine Learning and Deep Learning.
-Capture temporal dependencies using recurrent neural networks.
-Compare traditional Machine Learning models with sequential Deep Learning architectures.
-Evaluate model performance using RMSE, MAE, and MAPE.
-Analyze stock market volatility over time.
-Generate future stock price forecasts using the best-performing model.
-Understand the strengths and limitations of different forecasting architectures.
-📊 Dataset
+- Analyze historical stock price trends and market fluctuations.
+- Build time-series forecasting models using both Machine Learning and Deep Learning.
+- Capture temporal dependencies using recurrent neural networks.
+- Compare traditional Machine Learning models with sequential Deep Learning architectures.
+- Evaluate model performance using RMSE, MAE, and MAPE.
+- Analyze stock market volatility over time.
+- Generate future stock price forecasts using the best-performing model.
+- Understand the strengths and limitations of different forecasting architectures.
 
-The historical stock price data was obtained from the Yahoo Finance API using the yfinance Python library.
+---
 
-Stocks Analyzed
-Company	Ticker
-Apple	AAPL
-Microsoft	MSFT
-Google	GOOGL
-Amazon	AMZN
-Tesla	TSLA
+## 📊 Dataset
+
+The historical stock price data was obtained from the Yahoo Finance API using the `yfinance` Python library.
+
+### Stocks Analyzed
+
+| Company | Ticker |
+|---|---|
+| Apple | AAPL |
+| Microsoft | MSFT |
+| Google | GOOGL |
+| Amazon | AMZN |
+| Tesla | TSLA |
 
 The dataset covers the period from January 2015 to December 2023 and contains daily closing prices for the five selected technology companies.
 
@@ -39,28 +47,31 @@ Each row represents a trading day, while each column corresponds to the closing 
 
 The selected companies provide a multi-asset financial time-series dataset suitable for comparing different forecasting approaches.
 
-🔄 Data Preprocessing
+---
+
+## 🔄 Data Preprocessing
 
 Several preprocessing steps were performed before model training.
 
-1. Missing Value Analysis
+### 1. Missing Value Analysis
 
 The dataset was examined for missing values across the stock price variables.
 
 No missing values were identified in the dataset used for modeling.
 
-2. Feature Scaling
+### 2. Feature Scaling
 
-Stock prices were normalized using MinMaxScaler, transforming the values into a common range between 0 and 1.
+Stock prices were normalized using `MinMaxScaler`, transforming the values into a common range between 0 and 1.
 
 This scaling helps provide numerical stability and supports effective neural network training.
 
-3. Sliding Window Sequence Generation
+### 3. Sliding Window Sequence Generation
 
 A 60-day sliding window was used to transform the historical stock prices into sequential training samples.
 
 The previous 60 trading days were used to predict the next day's closing price.
 
+```text
 Previous 60 Trading Days
             ↓
     Sequential Input
@@ -68,565 +79,3 @@ Previous 60 Trading Days
        ML / DL Model
             ↓
    Next-Day Stock Price
-4. Train-Test Split
-
-The sequential dataset was divided into training and testing sets using an 80–20 split.
-
-80% of the data was used for model training.
-20% of the data was used for evaluation on unseen data.
-
-The input features and target values were divided into X_train, X_test, y_train, and y_test.
-
-The target variable represents the next-day closing price of the stock being predicted.
-
-🧠 Machine Learning & Deep Learning Models
-
-Six different predictive models were implemented and compared:
-
-LSTM
-GRU
-Random Forest
-XGBoost
-CNN-LSTM
-Attention-LSTM
-
-The models were evaluated to determine how effectively different architectures could learn patterns and temporal dependencies from historical stock price data.
-
-1. LSTM — Long Short-Term Memory
-
-Long Short-Term Memory (LSTM) is a recurrent neural network architecture designed to learn long-term dependencies in sequential data.
-
-LSTM was selected because stock prices are sequential and depend on historical patterns. The architecture can retain relevant information over multiple time steps while reducing the impact of irrelevant information.
-
-Model Architecture
-
-The implemented LSTM model consists of:
-
-LSTM layer — 64 units
-Dropout — 20%
-LSTM layer — 32 units
-Dropout — 20%
-Dense output layer
-Adam optimizer
-Mean Squared Error (MSE) loss
-
-The model was trained for 20 epochs with a batch size of 32.
-
-Performance
-RMSE: 17.7782
-MAE:  14.6153
-MAPE: 8.5265%
-
-The LSTM model captured the general trends in stock prices but produced higher prediction errors compared with the GRU model.
-
-2. GRU — Gated Recurrent Unit
-
-Gated Recurrent Unit (GRU) is a recurrent neural network architecture designed to capture temporal dependencies in sequential data.
-
-GRU provides a comparatively simpler recurrent architecture while retaining the ability to learn important patterns from historical observations.
-
-Model Architecture
-
-The implemented GRU model consists of:
-
-GRU layer — 64 units
-Dropout — 20%
-GRU layer — 32 units
-Dense output layer
-Adam optimizer
-Mean Squared Error (MSE) loss
-
-The model was trained for 20 epochs with a batch size of 32.
-
-Performance
-RMSE: 9.9561
-MAE:  7.2083
-MAPE: 4.1377%
-
-GRU achieved the best overall performance among all the models evaluated in this project.
-
-The lower error values indicate that the GRU predictions were closer to the actual stock prices compared with the other tested models.
-
-3. Random Forest
-
-Random Forest was implemented as a traditional Machine Learning baseline for comparison with the Deep Learning models.
-
-Random Forest is an ensemble learning algorithm that builds multiple decision trees and combines their predictions.
-
-It can capture nonlinear relationships in data, but it does not inherently account for the sequential nature of time-series observations.
-
-Model Configuration
-
-The Random Forest model was implemented using:
-
-Random Forest Regressor
-100 decision trees (n_estimators=100)
-
-The sequential input data was transformed into a suitable tabular representation before model training.
-
-Performance
-RMSE: 39.2629
-MAE:  31.2417
-MAPE: 17.5553%
-
-Random Forest produced the highest prediction error among the evaluated models.
-
-This indicates that the model was less effective at capturing the temporal dependencies present in the financial time-series data.
-
-4. XGBoost
-
-XGBoost was implemented as another traditional Machine Learning benchmark.
-
-XGBoost is a gradient-boosting algorithm that combines multiple decision trees to model complex nonlinear relationships.
-
-Model Configuration
-
-The model was implemented using:
-
-XGBoost Regressor
-100 estimators
-
-The sequential input data was transformed into a tabular representation before training.
-
-Performance
-RMSE: 18.7103
-MAE:  13.8070
-MAPE: 7.9972%
-
-XGBoost performed substantially better than Random Forest.
-
-However, its performance remained below the best-performing recurrent Deep Learning model, GRU.
-
-5. CNN-LSTM
-
-CNN-LSTM combines Convolutional Neural Networks (CNN) with Long Short-Term Memory (LSTM) networks.
-
-The CNN component is used to identify local patterns within the time-series data, while the LSTM component captures temporal dependencies.
-
-Model Architecture
-
-The implemented CNN-LSTM architecture consists of:
-
-Conv1D layer — 64 filters
-Kernel size — 3
-ReLU activation
-MaxPooling1D
-LSTM layer — 50 units
-Dense output layer
-Adam optimizer
-Mean Squared Error (MSE) loss
-Performance
-RMSE: 15.6540
-MAE:  12.2325
-MAPE: 6.6736%
-
-CNN-LSTM achieved the second-best RMSE among the evaluated models.
-
-The combination of convolutional feature extraction and recurrent sequence modeling allowed the model to capture both local patterns and temporal dependencies.
-
-6. Attention-LSTM
-
-Attention-LSTM extends the traditional LSTM architecture by incorporating an attention mechanism.
-
-The attention mechanism allows the model to assign different importance to different time steps in the input sequence.
-
-This enables the model to focus on potentially more relevant historical observations when generating predictions.
-
-Performance
-RMSE: 29.8928
-MAE:  24.1991
-MAPE: 14.7664%
-
-Despite the additional attention mechanism, the Attention-LSTM model performed worse than the simpler recurrent architectures.
-
-This indicates that increased architectural complexity did not necessarily result in better forecasting performance for this dataset.
-
-📉 Stock Market Volatility Analysis
-
-In addition to stock price prediction, the project analyzed stock market volatility using historical returns.
-
-Daily returns and a 20-day rolling standard deviation were calculated for AAPL.
-
-data['returns'] = data['AAPL'].pct_change()
-data['volatility'] = data['returns'].rolling(20).std()
-
-The volatility analysis was used to identify periods of increased market instability and larger price fluctuations.
-
-The analysis showed noticeable volatility spikes, particularly around 2020.
-
-These periods of increased volatility provide important context when evaluating forecasting performance because sudden market movements can be more difficult for predictive models to capture.
-
-📊 Model Performance Comparison
-
-The models were evaluated using three key metrics:
-
-RMSE — Root Mean Squared Error
-MAE — Mean Absolute Error
-MAPE — Mean Absolute Percentage Error
-
-Lower values indicate better predictive performance.
-
-Rank	Model	RMSE	MAE	MAPE
-🥇 1	GRU	9.9561	7.2083	4.1377%
-🥈 2	CNN-LSTM	15.6540	12.2325	6.6736%
-🥉 3	LSTM	17.7782	14.6153	8.5265%
-4	XGBoost	18.7103	13.8070	7.9972%
-5	Attention-LSTM	29.8928	24.1991	14.7664%
-6	Random Forest	39.2629	31.2417	17.5553%
-🏆 Key Findings
-🥇 GRU Achieved the Best Performance
-
-GRU achieved the lowest RMSE, MAE, and MAPE values among all evaluated models.
-
-RMSE = 9.9561
-MAE  = 7.2083
-MAPE = 4.1377%
-
-This made GRU the best-performing model in this study.
-
-🧠 Recurrent Models Performed Strongly
-
-The results demonstrate that recurrent neural network architectures are well suited to the sequential nature of financial time-series data.
-
-GRU achieved the best overall performance, while LSTM also provided reasonable forecasting results.
-
-🌳 Random Forest Produced the Highest Error
-
-Random Forest recorded the highest RMSE, MAE, and MAPE values.
-
-This suggests that the traditional tree-based approach was less effective at capturing temporal dependencies in the stock price sequences.
-
-📈 XGBoost Provided a Strong ML Benchmark
-
-XGBoost performed substantially better than Random Forest and produced competitive results compared with some of the Deep Learning models.
-
-However, GRU achieved considerably lower prediction errors.
-
-⚙️ More Complex Architecture Did Not Guarantee Better Performance
-
-Attention-LSTM introduced an additional attention mechanism but did not outperform the simpler recurrent architectures.
-
-This highlights the importance of empirical model evaluation and architecture selection rather than assuming that greater complexity automatically improves forecasting accuracy.
-
-📉 Market Volatility Affected Prediction Accuracy
-
-The models were generally able to capture broad stock price trends but had greater difficulty tracking sudden peaks and declines during periods of higher market volatility.
-
-🔮 Future Price Forecasting
-
-The trained GRU model was selected for future forecasting because it achieved the best overall performance.
-
-The last sequence of 60 time steps from the test dataset was used as the initial input.
-
-The model then generated predictions iteratively:
-
-Last 60 Time Steps
-        ↓
-   GRU Prediction
-        ↓
- Append Prediction
-        ↓
-Remove Oldest Value
-        ↓
-Updated 60-Step Sequence
-        ↓
-   GRU Prediction
-        ↓
-      Repeat
-        ↓
-5 Future Time Steps
-
-The model generated predictions for the next five future time steps.
-
-The resulting predictions were:
-
-0.9450556
-0.9398304
-0.93432456
-0.92914784
-0.9242954
-
-These values are normalized predictions produced after MinMax scaling and therefore should not be interpreted directly as dollar stock prices.
-
-The forecast showed a slight downward trend in the normalized price levels.
-
-📈 Visualizations
-
-The project includes several visualizations for analyzing stock prices, volatility, model training, and prediction performance.
-
-Historical Stock Prices
-
-Time-series visualizations were used to analyze historical price movements for:
-
-AAPL
-MSFT
-GOOGL
-AMZN
-TSLA
-Stock Volatility
-
-A 20-day rolling volatility measure was used to identify periods of increased market instability.
-
-Training and Validation Loss
-
-Training and validation loss curves were analyzed to evaluate model convergence and generalization during training.
-
-Actual vs Predicted Prices
-
-Actual stock prices were compared with predictions generated by the different Machine Learning and Deep Learning models.
-
-Model Performance Comparison
-
-RMSE, MAE, and MAPE were compared across all six models to identify the most effective forecasting approach.
-
-🔬 Methodology
-
-The complete project workflow can be summarized as:
-
-Yahoo Finance API
-        │
-        ▼
-Historical Stock Data
-        │
-        ▼
-Data Cleaning & Validation
-        │
-        ▼
-Missing Value Analysis
-        │
-        ▼
-MinMax Scaling
-        │
-        ▼
-60-Day Sliding Windows
-        │
-        ▼
-80/20 Train-Test Split
-        │
-        ├───────────────────────┐
-        │                       │
-        ▼                       ▼
-Machine Learning          Deep Learning
-        │                       │
-        ├── Random Forest       ├── LSTM
-        │                       ├── GRU
-        └── XGBoost             ├── CNN-LSTM
-                                └── Attention-LSTM
-        │                       │
-        └───────────┬───────────┘
-                    ▼
-             Model Evaluation
-                    │
-          ┌─────────┼─────────┐
-          ▼         ▼         ▼
-        RMSE       MAE       MAPE
-                    │
-                    ▼
-             Model Comparison
-                    │
-                    ▼
-              Best Model
-                  GRU
-                    │
-                    ▼
-          Future Price Forecast
-🛠️ Technologies Used
-Programming Language
-Python
-Data Processing
-Pandas
-NumPy
-Data Visualization
-Matplotlib
-Seaborn
-Financial Data
-Yahoo Finance
-yfinance
-Machine Learning
-Scikit-learn
-Random Forest
-XGBoost
-Deep Learning
-TensorFlow
-Keras
-LSTM
-GRU
-CNN-LSTM
-Attention Mechanism
-Preprocessing
-MinMaxScaler
-Sliding Window Sequence Generation
-Evaluation
-RMSE
-MAE
-MAPE
-💡 Business & Analytical Value
-
-This project demonstrates the application of Machine Learning and Deep Learning to financial time-series forecasting.
-
-The analysis can support:
-
-Historical market analysis
-Time-series pattern recognition
-Comparative model evaluation
-Forecasting experimentation
-Volatility analysis
-Quantitative financial analysis
-Data-driven decision-making
-
-An important modeling insight from the project is that greater model complexity does not necessarily result in better predictive performance. In this study, the comparatively simpler GRU architecture achieved the strongest results.
-
-⚠️ Limitations
-1. Limited Feature Set
-
-The models were trained primarily using historical closing prices.
-
-Additional variables such as trading volume, technical indicators, macroeconomic variables, and investor sentiment were not incorporated.
-
-2. External Market Factors
-
-Stock prices are influenced by many external factors, including:
-
-Economic policies
-Geopolitical events
-Global crises
-Company-specific news
-Market sentiment
-
-These factors were outside the scope of the current models.
-
-3. Limited Asset Coverage
-
-The analysis focused on five technology companies:
-
-AAPL
-MSFT
-GOOGL
-AMZN
-TSLA
-
-Therefore, the results may not generalize to companies from other industries or different market conditions.
-
-4. Traditional Machine Learning Limitations
-
-Random Forest and XGBoost were primarily used as benchmark models.
-
-Unlike recurrent neural networks, these tree-based approaches do not inherently model temporal dependencies in sequential data.
-
-🚀 Future Work
-
-Several extensions could improve the project in future iterations.
-
-📊 Additional Financial Features
-
-Future models could incorporate:
-
-Trading volume
-Moving averages
-RSI
-MACD
-Other technical indicators
-Market indices
-Macroeconomic variables
-📰 Financial News & Sentiment Analysis
-
-Future work could integrate external information such as:
-
-Financial news
-Social media sentiment
-Earnings reports
-Investor sentiment indicators
-
-This could allow models to incorporate market information beyond historical prices.
-
-🤖 Advanced Deep Learning Architectures
-
-Future experiments could explore:
-
-Transformer-based models
-Temporal Convolutional Networks
-Advanced Attention architectures
-Other sequence forecasting approaches
-🌍 Expanded Dataset
-
-The dataset could be expanded to include:
-
-More companies
-Multiple industries
-International markets
-Longer historical periods
-🔮 Extended Forecasting Horizons
-
-Future versions could investigate longer multi-step forecasting horizons rather than limiting predictions to five future time steps.
-
-📌 Key Project Takeaways
-
-This project demonstrates an end-to-end Machine Learning and Deep Learning workflow for financial time-series forecasting.
-
-The most important result was:
-
-GRU
-↓
-Best Overall Performance
-
-RMSE: 9.9561
-MAE:  7.2083
-MAPE: 4.1377%
-
-Overall model ranking:
-
-GRU
-↓
-Best overall forecasting performance
-
-CNN-LSTM
-↓
-Second-best RMSE performance
-
-LSTM
-↓
-Strong recurrent baseline
-
-XGBoost
-↓
-Strong traditional ML benchmark
-
-Attention-LSTM
-↓
-Higher complexity without improved performance
-
-Random Forest
-↓
-Highest prediction error
-
-The project highlights the importance of:
-
-Time-series preprocessing
-Sequential data representation
-Model architecture selection
-Comparative model evaluation
-Financial volatility analysis
-Error-based performance assessment
-Understanding model limitations
-📚 Project Information
-
-Project Title: Multi-Asset Stock Price Prediction using Deep Learning and Machine Learning
-
-Date: March 2026
-
-Domain: Financial Analytics · Machine Learning · Deep Learning · Time-Series Forecasting
-
-Primary Model: GRU
-
-Dataset Source: Yahoo Finance API
-
-Prediction Target: Next-Day Stock Closing Price
-
-Forecast Horizon: Five Future Time Steps
-
-👩‍💻 Author
-
-Meghana Paladi Shekar
-
-Master's in Data Analytics and Business Economics
-Lund University, Sweden
