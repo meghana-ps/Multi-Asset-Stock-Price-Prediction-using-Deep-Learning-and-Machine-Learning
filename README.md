@@ -79,16 +79,58 @@ Previous 60 Trading Days
        ML / DL Model
             ↓
    Next-Day Stock Price
-
+---
 
 ---
 
-### 4. Train-Test Split
+## 4. Train-Test Split
 
-The sequential dataset was divided into training and testing subsets using an 80/20 chronological split.
+The sequential dataset was divided into training and testing sets using an 80–20 split, where 80% of the data was used for model training and the remaining 20% was used for evaluation on unseen data.
 
-The time-series order was preserved to prevent future observations from being used during model training.
+The input features and target values were divided into `X_train`, `X_test`, `y_train`, and `y_test`.
+
+The target variable represents the **next-day closing price** of the stock being predicted.
+
+---
+
+# 🧠 Machine Learning & Deep Learning Models
+
+Six different predictive models were implemented and compared:
+
+- LSTM
+- GRU
+- Random Forest
+- XGBoost
+- CNN-LSTM
+- Attention-LSTM
+
+The models were evaluated to determine how effectively different architectures could learn patterns and temporal dependencies from historical stock price data.
+
+---
+
+## 1. LSTM — Long Short-Term Memory
+
+Long Short-Term Memory (LSTM) is a recurrent neural network architecture designed to learn long-term dependencies in sequential data.
+
+LSTM was selected because stock prices are sequential and depend on historical patterns. The architecture can retain relevant information over multiple time steps while reducing the impact of irrelevant information.
+
+### Model Architecture
+
+The implemented LSTM model consists of:
+
+- LSTM layer — 64 units
+- Dropout — 20%
+- LSTM layer — 32 units
+- Dropout — 20%
+- Dense output layer
+- Adam optimizer
+- Mean Squared Error (MSE) loss
+
+The model was trained for 20 epochs with a batch size of 32.
+
+### Performance
 
 ```text
-80% → Training Data
-20% → Testing Data
+RMSE: 17.7782
+MAE:  14.6153
+MAPE: 8.5265%
