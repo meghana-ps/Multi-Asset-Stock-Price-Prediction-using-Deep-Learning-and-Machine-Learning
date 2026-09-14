@@ -79,3 +79,16 @@ Previous 60 Trading Days
        ML / DL Model
             ↓
    Next-Day Stock Price
+
+
+---
+
+### 4. Train-Test Split
+
+The sequential dataset was divided into training and testing subsets using an 80/20 chronological split.
+
+The time-series order was preserved to prevent future observations from being used during model training.
+
+```text
+80% → Training Data
+20% → Testing Data
